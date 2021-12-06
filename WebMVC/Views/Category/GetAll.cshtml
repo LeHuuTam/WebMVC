@@ -1,0 +1,25 @@
+﻿@model List<WebMVC.Models.Category>
+<ul id="sideManu" class="nav nav-tabs nav-stacked">
+    @foreach (var cate in Model.Where(x => x.ParentId == null))
+    {
+        var child = Model.Where(x => x.ParentId == cate.Id).ToList();
+        if (child.Count() == 0)
+        {
+            <li>
+                <a href="#">@cate.Name</a>
+            </li>
+        }
+        else
+        {
+            <li class="subMenu">
+                <a>@cate.Name</a>
+                <ul style="display:none">
+                    @foreach (var item in child)
+                    {
+                        <li><a href="#"><i class="icon-chevron-right"></i>@item.Name</a></li>
+                    }
+                </ul>
+            </li>
+        }
+    }
+</ul>

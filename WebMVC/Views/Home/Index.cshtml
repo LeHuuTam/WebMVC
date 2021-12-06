@@ -1,0 +1,13 @@
+﻿@model List<WebMVC.Models.Product>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<div class="span9">
+    <div class="well well-small">
+        <h4>sản phẩm bán chạy <small class="pull-right">200+ featured products</small></h4>
+        @{Html.RenderAction("Featured", "Home");}
+    </div>
+    <h4>Sản phẩm mới </h4>
+    @{ Html.RenderAction("Latest","Home");}
+</div>

@@ -1,0 +1,15 @@
+﻿@model List<WebMVC.Models.Product>
+<ul class="thumbnails">
+    @foreach (var item in Model)
+    {
+        <li class="span3">
+            <div class="thumbnail">
+                <a href="product_details.html"><img src=@item.Avatar alt="" /></a>
+                <div class="caption">
+                    <h5>@item.Name</h5>
+                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm vào <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@item.Price đ</a></h4>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
