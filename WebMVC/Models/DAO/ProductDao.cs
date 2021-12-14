@@ -22,7 +22,7 @@ namespace WebMVC.Models.DAO
             List<Product> allPro = db.Products.ToList();
             DateTime date = allPro[0].DateCreated.Value;
             int index = 0;
-            for(int j = 0; j < 6; j++)
+            for (int j = 0; j < 6; j++)
             {
                 for (int i = 1; i < allPro.Count; i++)
                 {
@@ -38,6 +38,14 @@ namespace WebMVC.Models.DAO
                 date = allPro[0].DateCreated.Value;
             }
             return latestList;
+        }
+        public List<Product> GetByCategory(int cateId = 0)
+        {
+            return db.Products.Where(x => x.Category == cateId).ToList();//Skip((pageSize-1)*pageSize).Take(pageSize).ToList();
+        }
+        public Product GetById(int Id)
+        {
+            return db.Products.Where(x => x.Id == Id).FirstOrDefault();//Skip((pageSize-1)*pageSize).Take(pageSize).ToList();
         }
     }
 }

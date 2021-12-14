@@ -27,12 +27,8 @@ namespace WebMVC.Controllers
                 if (result)
                 {
                     var user = dao.GetByUserName(model.UserName);
-                    var userSession = new UserSession()
-                    {
-                        Id = user.Id,
-                        UserName = user.UserName
-                    };
-                    Session.Add(Const.UserSession, userSession);
+                    Session.Add("user", user);
+                    ViewBag.UserName = user.Name;
                     return RedirectToAction("Index", "Home");
                 }
                 else

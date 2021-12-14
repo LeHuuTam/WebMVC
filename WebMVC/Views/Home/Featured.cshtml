@@ -1,4 +1,8 @@
 ﻿@model List<WebMVC.Models.Product>
+@using WebMVC.Models
+@{
+    var user = (User)Session["user"];
+}
 <div class="row-fluid">
     <div id="featured" class="carousel slide">
         <div class="carousel-inner">
@@ -12,14 +16,21 @@
                                 <a href="product_details.html"><img src=@Model[j].Avatar alt=""></a>
                                 <div class="caption">
                                     <h5>@Model[j].Name</h5>
-                                    <h4><a class="btn" href="product_details.html">Thêm</a> <span class="pull-right">@Model[j].Price đ</span></h4>
+                                    @if (user != null)
+                                    {
+                                        <h4><a class="btn addCart" data-id=@Model[j].Id>Thêm</a> <span class="pull-right">@Model[j].Price đ</span></h4>
+                                    }
+                                    else
+                                    {
+                                        <h4><a class="btn" href=@Url.Action("Index","Login")>Thêm</a> <span class="pull-right">@Model[j].Price đ</span></h4>
+                                    }
                                 </div>
                             </div>
                         </li>
                     }
                 </ul>
             </div>
-            @for (int i = 1; i < 2; i++)
+            @for (int i = 1; i < 4; i++)
             {
                 <div class="item">
                     <ul class="thumbnails">
@@ -31,7 +42,14 @@
                                     <a href="product_details.html"><img src=@Model[j+4*i].Avatar alt=""></a>
                                     <div class="caption">
                                         <h5>@Model[j + 4 * i].Name</h5>
-                                        <h4><a class="btn" href="product_details.html">Thêm</a> <span class="pull-right">@Model[j + 4 * i].Price đ</span></h4>
+                                        @if (user != null)
+                                        {
+                                            <h4><a class="btn addCart" data-id=@Model[j + 4 * i].Id>Thêm</a> <span class="pull-right">@Model[j + 4 * i].Price đ</span></h4>
+                                        }
+                                        else
+                                        {
+                                            <h4><a class="btn" href=@Url.Action("Index","Login")>Thêm</a> <span class="pull-right">@Model[j + 4 * i].Price đ</span></h4>
+                                        }
                                     </div>
                                 </div>
                             </li>

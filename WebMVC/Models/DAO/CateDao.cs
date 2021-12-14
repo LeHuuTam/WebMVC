@@ -16,5 +16,9 @@ namespace WebMVC.Models.DAO
         {
             return db.Categories.ToList();
         }
+        public Category GetById(int Id)
+        {
+            return db.Categories.Where(x=>x.Id==Id).FirstOrDefault();
+        }        
     }
 }

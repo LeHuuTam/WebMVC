@@ -1,0 +1,40 @@
+﻿@using WebMVC.Models
+@{ var session = (User)Session["user"];}
+<div id="header">
+    <div class="container">
+        @if (session != null)
+        {
+            <div id="welcomeLine" class="row">
+                <div class="span6">Xin chào!<strong> @session.Name</strong></div>
+            </div>
+        }
+        <!-- Navbar ================================================== -->
+        <div id="logoArea" class="navbar">
+            <a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-inner">
+                <a class="brand" href=@Url.Action("Index","Home")><img src="~/Assets/themes/images/thucphamxanh.png" alt="Bootsshop" width="200" /></a>
+                <form class="form-inline navbar-search" method="post" action="products.html">
+                    <input id="srchFld" class="srchTxt" type="text" />
+                    <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+                </form>
+                <ul id="topMenu" class="nav pull-right">
+                    <li class=""><a href="contact.html">Liên hệ</a></li>
+                    <li class="">
+                        @if (session == null)
+                        {
+                            <a href=@Url.Action("Index","Login") role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Đăng nhập</span></a>
+                        }
+                        else
+                        {
+                            <a href=@Url.Action("Index","Login") role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Đăng xuất</span></a>
+                        }
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,7 +6,7 @@
         if (child.Count() == 0)
         {
             <li>
-                <a href="#">@cate.Name</a>
+                <a href=@Url.Action("ProductsList", "Category", new { cateId = cate.Id})>@cate.Name</a>
             </li>
         }
         else
@@ -16,7 +16,7 @@
                 <ul style="display:none">
                     @foreach (var item in child)
                     {
-                        <li><a href="#"><i class="icon-chevron-right"></i>@item.Name</a></li>
+                        <li><a href=@Url.Action("ProductsList", "Category", new { cateId = item.Id})><i class="icon-chevron-right"></i>@item.Name</a></li>
                     }
                 </ul>
             </li>

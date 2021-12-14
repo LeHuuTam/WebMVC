@@ -1,0 +1,108 @@
+﻿@model WebMVC.Models.Product
+@using WebMVC.Models
+@{
+    ViewBag.Title = "ProductDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = (User)Session["user"];
+}
+@section jsFooter{
+    <script>
+        $('#addCart').off('click').on('click', function (e) {
+            e.preventDefault();
+            var proId = $(this).data('id');
+            $.ajax({
+                url: '/Cart/AddItem',
+                type: 'POST',
+                async: true,
+                data: { proId: proId },
+                success: function (msg) {
+                    if (msg == 'false') {
+                        alert('Thêm không thành công');
+                    }
+                }
+            })
+        });
+    </script>
+}
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="index.html">Trang chủ</a> <span class="divider">/</span></li>
+        <li><a href="products.html">Sản phẩm</a> <span class="divider">/</span></li>
+        <li class="active">Chi tiết</li>
+    </ul>
+    <div class="row">
+        <div id="gallery" class="span3">
+            <a href=@Model.Avatar title="Fujifilm FinePix S2950 Digital Camera">
+                <img src=@Model.Avatar style="width:100%" alt="Fujifilm FinePix S2950 Digital Camera" />
+            </a>
+            <div id="differentview" class="moreOptopm carousel slide">
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <a href=@Model.Avatar> <img style="width:29%" src=@Model.Avatar alt="" /></a>
+                        <a href=@Model.Avatar> <img style="width:29%" src=@Model.Avatar alt="" /></a>
+                        <a href=@Model.Avatar> <img style="width:29%" src=@Model.Avatar alt="" /></a>
+                    </div>
+                    <div class="item">
+                        <a href=@Model.Avatar> <img style="width:29%" src=@Model.Avatar" alt="" /></a>
+                        <a href=@Model.Avatar> <img style="width:29%" src=@Model.Avatar alt="" /></a>
+                        <a href=@Model.Avatar> <img style="width:29%" src=@Model.Avatar alt="" /></a>
+                    </div>
+                </div>
+
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+
+            </div>
+        </div>
+        <div class="span6">
+            <h3>@Model.Name  </h3>
+            <hr class="soft" />
+            <form class="form-horizontal qtyFrm">
+                <div class="control-group">
+                    <label class="control-label"><span>@Model.Price đ</span></label>
+                    <div class="controls">
+                        <input type="number" class="span1" placeholder="Số lượng" />
+                        @if (user == null)
+                        {
+                            <a href=@Url.Action("Index","Login") class="btn btn-large btn-primary pull-right"> Thêm vào giỏ <i class=" icon-shopping-cart"></i></a>
+                        }
+                        else
+                        {
+                            <button id="addCart" type="submit" data-id="@Model.Id" class="btn btn-large btn-primary pull-right"> Thêm vào giỏ <i class=" icon-shopping-cart"></i></button>
+                        }
+                    </div>
+                </div>
+            </form>
+
+            <hr class="soft" />
+            <h4>Còn @Model.Stock sản phẩm</h4>
+            <form class="form-horizontal qtyFrm pull-right">
+                <div class="control-group">
+                </div>
+            </form>
+        </div>
+
+        <div class="span9">
+            <ul id="productDetail" class="nav nav-tabs">
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade active in" id="home">
+                    <h4>Thông tin sản phẩm</h4>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr class="techSpecRow"><td class="techSpecTD1">Thương hiệu: </td><td class="techSpecTD2">@Model.Brand</td></tr>
+                            <tr class="techSpecRow"><td class="techSpecTD1">Sản xuất tại:</td><td class="techSpecTD2">@Model.MadeIn</td></tr>
+                            <tr class="techSpecRow"><td class="techSpecTD1">Hạn sử dụng:</td><td class="techSpecTD2"> @Model.Expiry</td></tr>
+                            <tr class="techSpecRow"><td class="techSpecTD1">Bảo quản:</td><td class="techSpecTD2">@Model.Preservation</td></tr>
+                        </tbody>
+                    </table>
+                    <h5>
+                        @Model.Description
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

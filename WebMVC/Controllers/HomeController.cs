@@ -15,6 +15,10 @@ namespace WebMVC.Controllers
         {
             return View();
         }
+        public ActionResult Top()
+        {
+            return View();
+        }
         public ActionResult Featured()
         {
             var proList = new ProductDao().GetFeatured();

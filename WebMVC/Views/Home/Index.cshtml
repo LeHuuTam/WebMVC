@@ -3,11 +3,36 @@
     ViewBag.Title = "Home Page";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
+@section jsFooter{
+    <script>
+        $('.addCart').off('click').on('click', function (e) {
+            e.preventDefault();
+            var proId = $(this).data('id');
+            $.ajax({
+                url: '/Cart/AddItem',
+                type: 'POST',
+                async: true,
+                data: { proId: proId },
+                success: function (msg) {
+                    if (msg.status == 'true')
+                    {
+                        $('#cartText').text('Giỏ hàng: ' + msg.totalProducts);
+                        $('#cartPrice').text(msg.totalPrice + ' đ');
+                    }
+                    else
+                    {
+                        alert('Thêm không thành công');
+                    }
+                }
+            })
+        });
+    </script>
+}
 <div class="span9">
     <div class="well well-small">
         <h4>sản phẩm bán chạy <small class="pull-right">200+ featured products</small></h4>
         @{Html.RenderAction("Featured", "Home");}
     </div>
     <h4>Sản phẩm mới </h4>
-    @{ Html.RenderAction("Latest","Home");}
+    @{ Html.RenderAction("Latest", "Home");}
 </div>

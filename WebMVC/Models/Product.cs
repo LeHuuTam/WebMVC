@@ -25,6 +25,18 @@ namespace WebMVC.Models
 
         public int Price { get; set; }
 
+        [StringLength(20)]
+        public string Brand { get; set; }
+
+        [StringLength(20)]
+        public string MadeIn { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? Expiry { get; set; }
+
+        [StringLength(200)]
+        public string Preservation { get; set; }
+
         [Column(TypeName = "ntext")]
         public string Description { get; set; }
 

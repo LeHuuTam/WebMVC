@@ -133,14 +133,17 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Common\Const.cs" />
     <Compile Include="Common\UserSession.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\DAO\CartDao.cs" />
     <Compile Include="Models\DAO\CateDao.cs" />
     <Compile Include="Models\DAO\ProductDao.cs" />
     <Compile Include="Models\DAO\UserDao.cs" />
@@ -1978,14 +1981,30 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Products\202108021001475179.jpg" />
+    <Content Include="Images\Products\4-hop-tra-sua-matcha-cozy-225ml-202103272311482216.jpg" />
+    <Content Include="Images\Products\6-chai-nuoc-ngot-mountain-dew-390ml-202103312237375800.jpg" />
+    <Content Include="Images\Products\6-chai-nuoc-tang-luc-sting-gold-330ml-202103272139112743.jpg" />
+    <Content Include="Images\Products\6-chai-tra-o-long-tea-plus-350ml-202103290356406042.jpg" />
+    <Content Include="Images\Products\6-chai-tra-sua-kirin-latte-345ml-202103290311124707.jpg" />
+    <Content Include="Images\Products\6-lon-nuoc-uong-co-ga-all-free-vi-lua-mach-330ml-202105140907019665.jpg" />
     <Content Include="Images\Products\ba-roi-heo.jpg" />
     <Content Include="Images\Products\bi-do-tron-lam-san-tui-500g-202107101809594018.jpg" />
     <Content Include="Images\Products\bo-bit-tet.jpg" />
+    <Content Include="Images\Products\bong-cai-xanh-tui-300g-202012282223272285.jpg" />
     <Content Include="Images\Products\ca-chua.jpg" />
     <Content Include="Images\Products\ca-rot-da-latjpg.jpg" />
     <Content Include="Images\Products\dui-ga-goc-tu.jpg" />
+    <Content Include="Images\Products\duoi-heo-meat-master-khay-400g-202111201237268005.jpg" />
+    <Content Include="Images\Products\ga-dai-nhap-khau-dong-lanh-tui-12-15kg-202108150428270103.jpeg" />
+    <Content Include="Images\Products\loc-6-lon-strongbow-vi-dao-330ml-202112041805165271.jpg" />
     <Content Include="Images\Products\mang-tay-bo-200g-202110171852246393.jpeg" />
     <Content Include="Images\Products\nac-mong-trau.jpg" />
+    <Content Include="Images\Products\nam-dui-ga-vi-200g-202011071708459966.jpg" />
+    <Content Include="Images\Products\suon-non-heo-nhap-khau-dong-lanh-tui-500g-202110041511336712.jpg" />
+    <Content Include="Images\Products\tao-cripps-red-nhap-khau-1kg-202111221159337574.jpg" />
+    <Content Include="Images\Products\uc-vit-tui-500g-202101141222111261.jpg" />
+    <Content Include="Images\Products\xa-lach-bup-mo-tui-500g-202009300003182642.jpg" />
     <Content Include="Images\rauqua-nb2_ptsy.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2232,6 +2251,8 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -2253,6 +2274,10 @@
     <Content Include="Views\Category\GetAll.cshtml" />
     <Content Include="Views\Home\Featured.cshtml" />
     <Content Include="Views\Home\Latest.cshtml" />
+    <Content Include="Views\Category\ProductsList.cshtml" />
+    <Content Include="Views\Product\ProductDetail.cshtml" />
+    <Content Include="Views\Home\Top.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

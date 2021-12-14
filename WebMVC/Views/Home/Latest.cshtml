@@ -1,4 +1,8 @@
 ﻿@model List<WebMVC.Models.Product>
+@using WebMVC.Models
+@{
+    var user = (User)Session["user"];
+}
 <ul class="thumbnails">
     @foreach (var item in Model)
     {
@@ -7,7 +11,15 @@
                 <a href="product_details.html"><img src=@item.Avatar alt="" /></a>
                 <div class="caption">
                     <h5>@item.Name</h5>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm vào <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@item.Price đ</a></h4>
+                    @if (user != null)
+                    {
+                        <h4 style="text-align:center"><a class="btn"> <i class="icon-zoom-in"></i></a> <a class="btn addCart" data-id=@item.Id>Thêm vào <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@item.Price đ</a></h4>
+                    }
+                    else
+                    {
+                        <h4 style="text-align:center"><a class="btn"> <i class="icon-zoom-in"></i></a> <a class="btn" href=@Url.Action("Index", "Login")>Thêm vào <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@item.Price đ</a></h4>
+                    }
+
                 </div>
             </div>
         </li>
