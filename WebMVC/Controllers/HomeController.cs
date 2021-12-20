@@ -13,21 +13,13 @@ namespace WebMVC.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
-        }
-        public ActionResult Top()
-        {
-            return View();
-        }
-        public ActionResult Featured()
-        {
-            var proList = new ProductDao().GetFeatured();
-            return View(proList);
-        }
-        public ActionResult Latest()
-        {
-            var proList = new ProductDao().GetLatest();
-            return View(proList);
+            var proDao = new ProductDao();
+            var home = new HomeModel()
+            {
+                Featured = proDao.GetFeatured(),
+                Latest = proDao.GetLatest()
+            };
+            return View(home);
         }
     }
 }

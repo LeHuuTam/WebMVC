@@ -137,7 +137,9 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ShipDetailController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -145,11 +147,16 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DAO\CartDao.cs" />
     <Compile Include="Models\DAO\CateDao.cs" />
+    <Compile Include="Models\DAO\OrderDao.cs" />
     <Compile Include="Models\DAO\ProductDao.cs" />
+    <Compile Include="Models\DAO\ShipDetailDao.cs" />
     <Compile Include="Models\DAO\UserDao.cs" />
+    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\DAO\ProductInOrderDao.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductInOrder.cs" />
     <Compile Include="Models\Role.cs" />
@@ -2276,8 +2283,13 @@
     <Content Include="Views\Home\Latest.cshtml" />
     <Content Include="Views\Category\ProductsList.cshtml" />
     <Content Include="Views\Product\ProductDetail.cshtml" />
-    <Content Include="Views\Home\Top.cshtml" />
+    <Content Include="Views\Shared\Top.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\ShipDetail.cshtml" />
+    <Content Include="Views\Order\ProductList.cshtml" />
+    <Content Include="Views\ShipDetail\Create.cshtml" />
+    <Content Include="Views\ShipDetail\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

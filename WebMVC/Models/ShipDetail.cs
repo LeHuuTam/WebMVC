@@ -17,6 +17,8 @@ namespace WebMVC.Models
 
         public int Id { get; set; }
 
+        public int? User { get; set; }
+
         [Required]
         [StringLength(50)]
         public string ReceiverName { get; set; }
@@ -28,14 +30,9 @@ namespace WebMVC.Models
         [StringLength(100)]
         public string Address { get; set; }
 
-        public int? ShipMethod { get; set; }
-
-        [Column(TypeName = "ntext")]
-        public string Note { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
 
-        public virtual ShipMethod ShipMethod1 { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

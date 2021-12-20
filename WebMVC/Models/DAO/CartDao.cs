@@ -16,6 +16,19 @@ namespace WebMVC.Models.DAO
         {
             return db.Carts.Where(x=>x.User==userId).ToList();
         }
+        public List<Cart> GetByListId(int[] listId)
+        {
+            List<Cart> list = new List<Cart>();
+            foreach(var i in listId)
+            {
+                Cart cart = db.Carts.Where(x => x.Id == i).FirstOrDefault();
+                if (cart != null)
+                {
+                    list.Add(cart);
+                }
+            }
+            return list;
+        }
         public int GetTotalPriceByUser(int userId)
         {
             var list = db.Carts.Where(x => x.User == userId).ToList();
@@ -36,10 +49,22 @@ namespace WebMVC.Models.DAO
             }
             return total;
         }
-        public bool AddCart(Cart cart)
+        public List<Cart> GetSelected(int userId)
+        {
+            var list = db.Carts.Where(x => x.User == userId && x.Selected == true).ToList();
+            return list;
+        }
+        public bool AddCart(int userId, int proId, int quantity, bool selected)
         {
             try
             {
+                var cart = new Cart()
+                {
+                    User = userId,
+                    Product = proId,
+                    Quantity = quantity,
+                    Selected = selected
+                };
                 db.Carts.Add(cart);
                 db.SaveChanges();
                 return true;
@@ -69,6 +94,20 @@ namespace WebMVC.Models.DAO
             {
                 Cart c = db.Carts.Where(x => x.Id == cartId).FirstOrDefault();
                 db.Carts.Remove(c);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool ChangeSelected(int cartId)
+        {
+            try
+            {
+                var cart = db.Carts.Where(x => x.Id==cartId).FirstOrDefault();
+                cart.Selected = !cart.Selected;
                 db.SaveChanges();
                 return true;
             }

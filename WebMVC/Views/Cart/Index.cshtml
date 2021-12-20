@@ -20,14 +20,29 @@
                 dataType: "json",
                 data: { proId: proId },
                 success: function (msg) {
-                    if (msg.status == 'true') {
+                    if (msg.status == true) {
                         $('#row_' + proId).remove();
                         $('#total').text(msg.totalPrice);
-                        $('#cartText').text('Giỏ hàng: '+ msg.totalProducts);
+                        $('#cartText').text('Giỏ hàng: ' + msg.totalProducts);
                         $('#cartPrice').text(msg.totalPrice + ' đ');
                     }
                     else {
                         alert('Không thể xoá');
+                    }
+                }
+            })
+        });
+        $('.select').off('click').on('click', function (e) {
+            var proId = $(this).data('id');
+            $.ajax({
+                url: '/Cart/ChangeSelected',
+                type: 'POST',
+                async: true,
+                dataType: "json",
+                data: { proId: proId },
+                success: function (msg) {
+                    if (msg.status == false) {
+                        alert('Không thực hiện được');
                     }
                 }
             })
@@ -81,7 +96,10 @@
                         <td>@item.Product1.Price đ</td>
                         <td>@(item.Quantity * item.Product1.Price) đ</td>
                         <td>
-                            <input type="checkbox" style="width:20px;height:20px;margin-left:30px" />
+                            @{
+                                var check = item.Selected == true ? "checked=\"checked\"" : null;
+                            }
+                            <input id=@item.Product1.Id class="select" data-id=@item.Product1.Id type="checkbox" @check style="width:20px;height:20px;margin-left:30px" />
                         </td>
                     </tr>
                 }
@@ -91,7 +109,6 @@
                 </tr>
             </tbody>
         </table>
-        <a href="login.html" class="btn btn-large pull-right">Đặt hàng <i class="icon-arrow-right"></i></a>
+        <a id="order" href=@Url.Action("Index", "Order") class="btn btn-large pull-right">Đặt hàng <i class="icon-arrow-right"></i></a>
     }
 </div>
-

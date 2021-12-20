@@ -1,0 +1,44 @@
+﻿@model WebMVC.Models.ShipDetail
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+        <li class="active"> SHOPPING CART</li>
+    </ul>
+    <h3>  Thông tin nhận hàng </h3>
+    <hr class="soft" />
+    <table class="table table-bordered">
+        <tr>
+            <td>
+                <form class="form-horizontal">
+                    @using (Html.BeginForm("Create", "ShipDetail", FormMethod.Post))
+                    {
+                        @Html.ValidationSummary(true, "", new { @style = "color:red" })
+                        <div class="control-group">
+                            @Html.ValidationMessageFor(m => m.ReceiverName, "", new { @style = "color:red" })
+                            <label class="control-label" for="inputCountry">Họ tên người nhận </label>
+                            @Html.TextBoxFor(m => m.ReceiverName, new { @type = "text", @id = "inputEmail", @style = "margin-left: 7rem" })
+                        </div>
+                        <div class="control-group">
+                            @Html.ValidationMessageFor(m => m.Phone, "", new { @style = "color:red" })
+                            <label class="control-label" for="inputPost">Số điện thoại</label>
+                            @Html.TextBoxFor(m => m.Phone, new { @type = "text", @id = "inputPassword", @style = "margin-left: 7rem", @class = "controls" })
+                        </div>
+                        <div class="control-group">
+                            @Html.ValidationMessageFor(m => m.Address, "", new { @style = "color:red" })
+                            <label class="control-label" for="inputPost">Địa chỉ nhận hàng</label>
+                            @Html.TextBoxFor(m => m.Address, new { @type = "text", @id = "inputPassword", @style = "margin-left: 7rem", @class = "controls" })
+                        </div>
+                        <div style="margin-left: 7rem" class="control-group">
+                            <div class="controls">
+                                <button type="submit" class="btn"> Hoàn tất </button>
+                            </div>
+                        </div>
+                    }
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -84,7 +84,7 @@ namespace WebMVC.Models
                 .HasForeignKey(e => e.ShipDetail);
 
             modelBuilder.Entity<ShipMethod>()
-                .HasMany(e => e.ShipDetails)
+                .HasMany(e => e.Orders)
                 .WithOptional(e => e.ShipMethod1)
                 .HasForeignKey(e => e.ShipMethod);
 
@@ -115,6 +115,11 @@ namespace WebMVC.Models
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Orders)
+                .WithOptional(e => e.User1)
+                .HasForeignKey(e => e.User);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.ShipDetails)
                 .WithOptional(e => e.User1)
                 .HasForeignKey(e => e.User);
 

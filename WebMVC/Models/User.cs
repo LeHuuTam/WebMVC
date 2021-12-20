@@ -14,6 +14,7 @@ namespace WebMVC.Models
         {
             Carts = new HashSet<Cart>();
             Orders = new HashSet<Order>();
+            ShipDetails = new HashSet<ShipDetail>();
             Transactions = new HashSet<Transaction>();
         }
 
@@ -55,6 +56,9 @@ namespace WebMVC.Models
         public virtual ICollection<Order> Orders { get; set; }
 
         public virtual Role Role1 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShipDetail> ShipDetails { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }

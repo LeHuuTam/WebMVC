@@ -24,15 +24,20 @@ namespace WebMVC.Models
 
         public int? ShipDetail { get; set; }
 
-        public int? ShipFee { get; set; }
+        public int? ShipMethod { get; set; }
 
         public DateTime? ReceiveDate { get; set; }
 
         public int? TotalPrice { get; set; }
 
+        [Column(TypeName = "ntext")]
+        public string Note { get; set; }
+
         public int? Status { get; set; }
 
         public virtual ShipDetail ShipDetail1 { get; set; }
+
+        public virtual ShipMethod ShipMethod1 { get; set; }
 
         public virtual User User1 { get; set; }
 

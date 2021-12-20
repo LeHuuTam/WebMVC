@@ -15,6 +15,8 @@ namespace WebMVC.Models
 
         public int? Order { get; set; }
 
+        public int? Quantity { get; set; }
+
         public virtual Order Order1 { get; set; }
 
         public virtual Product Product1 { get; set; }

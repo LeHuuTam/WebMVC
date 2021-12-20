@@ -17,6 +17,8 @@ namespace WebMVC.Models
 
         public int Quantity { get; set; }
 
+        public bool? Selected { get; set; }
+
         public virtual Product Product1 { get; set; }
 
         public virtual User User1 { get; set; }

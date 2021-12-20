@@ -12,7 +12,7 @@ namespace WebMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ShipMethod()
         {
-            ShipDetails = new HashSet<ShipDetail>();
+            Orders = new HashSet<Order>();
         }
 
         public int Id { get; set; }
@@ -21,6 +21,6 @@ namespace WebMVC.Models
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShipDetail> ShipDetails { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

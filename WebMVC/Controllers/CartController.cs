@@ -36,29 +36,17 @@ namespace WebMVC.Controllers
                 if (list.Exists(x => x.Product == proId))
                 {
                     var cart = list.Where(x => x.Product == proId).FirstOrDefault();
-                    result = new CartDao().UpdateQuantity(cart, 1);                 
+                    result = new CartDao().UpdateQuantity(cart, 1);
                 }
                 else
                 {
-                    var cart = new Cart()
-                    {
-                        User = user.Id,
-                        Product = proId,
-                        Quantity = 1
-                    };
-                    result = new CartDao().AddCart(cart);
+                    result = new CartDao().AddCart(user.Id, proId, 1, false);
                 }
             }
             //Neu user chua co gio hang hoac gio hang chua co sp nay
             else
             {
-                var cart = new Cart()
-                {
-                    User = user.Id,
-                    Product = proId,
-                    Quantity = 1
-                };
-                result = new CartDao().AddCart(cart);
+                result = new CartDao().AddCart(user.Id, proId, 1, false);
             }
             if (result)
             {
@@ -94,7 +82,7 @@ namespace WebMVC.Controllers
                 int totalProduxts = new CartDao().GetTotalProductsByUser(user.Id);
                 return Json(new
                 {
-                    status = "true",
+                    status = result,
                     totalProducts = totalProduxts,
                     totalPrice = totalPrice,
                 });
@@ -103,11 +91,23 @@ namespace WebMVC.Controllers
             {
                 return Json(new
                 {
-                    status = "false",
+                    status = result,
                     totalProducts = 0,
                     totalPrice = 0,
                 });
             }
+        }
+        [HttpPost]
+        public JsonResult ChangeSelected(int proId)
+        {
+            var user = (User)Session["user"];
+            var list = new CartDao().GetByUser(user.Id);
+            var cart = list.Where(x => x.Product == proId).FirstOrDefault();
+            var result = new CartDao().ChangeSelected(cart.Id);
+            return Json(new
+            {
+                status = result
+            });
         }
     }
 }

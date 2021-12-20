@@ -1,0 +1,60 @@
+﻿@model List<WebMVC.Models.ShipDetail>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+        <li class="active"> SHOPPING CART</li>
+    </ul>
+    <h3>  Thông tin nhận hàng </h3>
+    <hr class="soft" />
+    <p>
+        @Html.ActionLink("Thêm mới", "Create")
+    </p>
+    <table class="table table-bordered">
+        <colgroup>
+            <col style="width: auto">
+            <col style="width: auto">
+            <col style="width: auto">
+            <col style="width:100px">
+        </colgroup>
+        <tr>
+            <th>
+                Nguoi nhan
+            </th>
+            <th>
+                sdt
+            </th>
+            <th>
+                Dia chi
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReceiverName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    <span>
+                        <input class="select" type="checkbox" style="width:30px;height:30px; margin-bottom:3px" />
+                        <button class="btn btn-danger removeCart" type="button">
+                            <i class="icon-remove icon-white"></i>
+                        </button>
+                    </span>                    
+                </td>
+            </tr>
+        }
+    </table>
+    <a href=@Url.Action("Index", "Order") class="btn btn-large pull-right">Đặt hàng <i class="icon-arrow-right"></i></a>
+</div>
