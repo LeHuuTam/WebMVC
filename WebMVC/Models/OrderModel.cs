@@ -7,9 +7,8 @@ namespace WebMVC.Models
 {
     public class OrderModel
     {
-        public string ReceiverName { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public string Note { get; set; }
+        public List<ProductInOrder> ListProduct { get; set; }
+        public ShipDetail ShipDetail { get; set; }
+        public Order Order { get; set; }
     }
 }

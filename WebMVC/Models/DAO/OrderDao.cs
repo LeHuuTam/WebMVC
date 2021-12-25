@@ -16,6 +16,10 @@ namespace WebMVC.Models.DAO
         {
             return db.Orders.Where(x => x.User == userId).ToList();
         }
+        public List<Order> GetByStatus(int userId, int status)
+        {
+            return db.Orders.Where(x => x.User == userId && x.Status == status).ToList();
+        }
         public bool Create(int userId, int shipDetailId, string note, out int orderId)
         {
             orderId = -1;
@@ -25,7 +29,9 @@ namespace WebMVC.Models.DAO
                 {
                     User = userId,
                     ShipDetail = shipDetailId,
-                    Note = note
+                    Note = note,
+                    Time = DateTime.Now,
+                    Status = 1
                 };
                 db.Orders.Add(order);
                 db.SaveChanges();

@@ -11,7 +11,33 @@ namespace WebMVC.Controllers
     public class OrderController : Controller
     {
         // GET: Order
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Index(int status)
+        {
+            var user = (User)Session["user"];
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            var orderModelList = new List<OrderModel>();
+            var orderList = new OrderDao().GetByStatus(user.Id, status);
+            if (orderList.Count > 0)
+            {
+                foreach(var order in orderList)
+                {
+                    var proInOderList = new ProductInOrderDao().GetByOrder(order.Id);
+                    var orderModel = new OrderModel()
+                    {
+                        Order = order,
+                        ShipDetail = order.ShipDetail1,
+                        ListProduct = proInOderList
+                    };
+                    orderModelList.Add(orderModel);
+                }
+            }
+            return View(orderModelList);
+        }
+        public ActionResult Create()
         {
             var user = (User)Session["user"];
             if (user == null)
@@ -33,22 +59,18 @@ namespace WebMVC.Controllers
                 ViewBag.Address = shipDetail.Address;
             }
             var selectedCart = new CartDao().GetByUser(user.Id).Where(x => x.Selected == true).ToList();
-            //var shipDetail = new ShipDetailDao().GetByUser(user.Id);
             ViewData["SelectedCart"] = selectedCart;
-            //ViewData["shipDetail"] = shipDetail;
             return View();
         }
         [HttpPost]
-        public ActionResult Create(OrderModel model)
+        public ActionResult Create(ShipDetailModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = (User)Session["user"];
-                var shipOfUser = new ShipDetailDao().CheckByUser(user.Id);
                 int shipDetailId, orderId;
-                List<Product> proList = new List<Product>();
                 var shipDetail = new ShipDetailDao().GetShipDetail(user.Id, model.ReceiverName, model.Phone, model.Address);
-                if(shipDetail == null)
+                if (shipDetail == null)
                 {
                     var ship = new ShipDetail()
                     {
@@ -65,11 +87,7 @@ namespace WebMVC.Controllers
                 }
                 var createOrder = new OrderDao().Create(user.Id, shipDetailId, model.Note, out orderId);
                 var SelectedCart = new CartDao().GetSelected(user.Id);
-                foreach (var cart in SelectedCart)
-                {
-                    proList.Add(cart.Product1);
-                }
-                var createProInorder = new ProductInOrderDao().Create(proList, orderId);
+                var createProInorder = new ProductInOrderDao().Create(SelectedCart, orderId);
                 return RedirectToAction("Index", "Home");
             }
             else

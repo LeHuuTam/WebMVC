@@ -47,5 +47,9 @@ namespace WebMVC.Models.DAO
         {
             return db.Products.Where(x => x.Id == Id).FirstOrDefault();//Skip((pageSize-1)*pageSize).Take(pageSize).ToList();
         }
+        public List<Product> Search(string searchString)
+        {
+            return db.Products.Where(x => x.Name.Contains(searchString)).ToList();
+        }
     }
 }

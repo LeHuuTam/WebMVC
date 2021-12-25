@@ -1,7 +1,7 @@
-﻿@model PagedList.IPagedList<WebMVC.Models.Product>
+﻿@model List<WebMVC.Models.Product>
 @using WebMVC.Models
-@using PagedList.Mvc;
 @{
+    ViewBag.Title = "Search";
     Layout = "/Views/Shared/_Layout.cshtml";
     var user = (User)Session["user"];
 }
@@ -31,25 +31,10 @@
 <div class="span9">
     <ul class="breadcrumb">
         <li><a href="/Home">Trang chủ</a> <span class="divider">/</span></li>
-        <li class="active">@ViewBag.Cate</li>
+        <li class="active">Tìm kiếm</li>
     </ul>
-    <h3> @ViewBag.CateName <small class="pull-right"> có sẵn 200 mặt hàng </small></h3>
+    <h3> Có @Model.Count kết quả phù hợp </h3>
     <hr class="soft" />
-    <p>
-        Đây là phẩn mô tả danh mục
-    </p>
-    <hr class="soft" />
-    <form class="form-horizontal span6">
-        <div class="control-group">
-            <label class="control-label alignL">Sắp xếp </label>
-            <select>
-                <option>Tên sản phẩm A - Z</option>
-                <option>Tên sản phẩm Z - A</option>
-                <option>Giá thấp đến cao</option>
-                <option>Giá cao đến thấp</option>
-            </select>
-        </div>
-    </form>
     <br class="clr" />
     <div class="tab-content">
         <div class="tab-pane  active" id="blockView">
@@ -77,8 +62,5 @@
             <hr class="soft" />
         </div>
     </div>
-    <div class="pagination">
-        @Html.PagedListPager(Model, page => Url.Action("ProductsList", new { cateId = ViewBag.CateId, page }))
-    </div>
-    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    <br class="clr" />
 </div>

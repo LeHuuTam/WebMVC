@@ -16,7 +16,11 @@
                 async: true,
                 data: { proId: proId },
                 success: function (msg) {
-                    if (msg == 'false') {
+                    if (msg.status == 'true') {
+                        $('#cartText').text('Giỏ hàng: ' + msg.totalProducts);
+                        $('#cartPrice').text(msg.totalPrice + ' đ');
+                    }
+                    else {
                         alert('Thêm không thành công');
                     }
                 }
@@ -26,9 +30,9 @@
 }
 <div class="span9">
     <ul class="breadcrumb">
-        <li><a href="index.html">Trang chủ</a> <span class="divider">/</span></li>
-        <li><a href="products.html">Sản phẩm</a> <span class="divider">/</span></li>
-        <li class="active">Chi tiết</li>
+        <li><a href="/Home">Trang chủ</a> <span class="divider">/</span></li>
+        <li><a href="/Home">@Model.Category1.Name</a> <span class="divider">/</span></li>
+        <li class="active">@Model.Name </li>
     </ul>
     <div class="row">
         <div id="gallery" class="span3">
@@ -61,7 +65,6 @@
                 <div class="control-group">
                     <label class="control-label"><span>@Model.Price đ</span></label>
                     <div class="controls">
-                        <input type="number" class="span1" placeholder="Số lượng" />
                         @if (user == null)
                         {
                             <a href=@Url.Action("Index","Login") class="btn btn-large btn-primary pull-right"> Thêm vào giỏ <i class=" icon-shopping-cart"></i></a>

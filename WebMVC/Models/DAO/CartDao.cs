@@ -79,7 +79,10 @@ namespace WebMVC.Models.DAO
             try
             {
                 Cart c = db.Carts.Where(x => x.Id == cart.Id).FirstOrDefault();
-                c.Quantity += quantity;
+                if(c.Quantity > 1 || quantity > 0)
+                {
+                    c.Quantity += quantity;
+                }                
                 db.SaveChanges();
                 return true;
             }
@@ -115,6 +118,6 @@ namespace WebMVC.Models.DAO
             {
                 return false;
             }
-        }
+        }       
     }
 }

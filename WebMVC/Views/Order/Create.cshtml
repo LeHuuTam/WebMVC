@@ -1,0 +1,99 @@
+﻿@using WebMVC.Models
+@model ShipDetailModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int tong = 0;
+    foreach (var item in @ViewData["SelectedCart"] as List<Cart>)
+    {
+        tong += item.Product1.Price * item.Quantity;
+    }
+}
+<style>
+    .control-group {
+        margin-left: 7rem
+    }
+
+    .ship-form {
+        width: 20rem
+    }
+</style>
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+        <li class="active"> SHOPPING CART</li>
+    </ul>
+    <h3>  Đặt hàng</h3>
+    <hr class="soft" />
+    @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <table class="table table-bordered">
+            <tr><th>THÔNG TIN GIAO HÀNG</th></tr>
+            <tr>
+                <td>
+
+                    <div class="control-group">
+                        <label class="control-label" for="inputCountry">Họ tên người nhận </label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.ReceiverName, "", new { @Value = ViewBag.UserName, @class = "ship-form" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputPost">Số điện thoại</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Phone, "", new { @Value = ViewBag.Phone, @class = "ship-form" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputPost">Địa chỉ nhận hàng</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Address, "", new { @Value = ViewBag.Address, @class = "ship-form" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputPost">Ghi chú</label>
+                        <div class="controls">
+                            @Html.TextAreaFor(m => m.Note)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <button type="submit" class="btn">Thông tin đã lưu</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Tổng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @ViewData["SelectedCart"] as List<Cart>)
+                {
+                    <tr id="row_@item.Product1.Id">
+                        <td> <img width="100" src=@item.Product1.Avatar alt="" /></td>
+                        <td>@item.Product1.Name<br />Color : black, Material : metal</td>
+                        <td>
+                            @item.Quantity
+                        </td>
+                        <td>@item.Product1.Price đ</td>
+                        <td>@(item.Quantity * item.Product1.Price) đ</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="4" style="text-align:right"><strong>Tổng tiền =</strong></td>
+                    <td class="label label-important" style="display:block"> <strong id="total"> @tong đ </strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-large pull-right">Đặt hàng<i class="icon-arrow-right"></i></button>
+    }
+    @* <a href=@Url.Action("Create", "Order", new { }) class="btn btn-large pull-right">Đặt hàng<i class="icon-arrow-right"></i></a>*@
+</div>

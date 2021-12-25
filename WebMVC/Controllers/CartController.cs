@@ -79,11 +79,11 @@ namespace WebMVC.Controllers
             if (result)
             {
                 int totalPrice = new CartDao().GetTotalPriceByUser(user.Id);
-                int totalProduxts = new CartDao().GetTotalProductsByUser(user.Id);
+                int totalProducts = new CartDao().GetTotalProductsByUser(user.Id);
                 return Json(new
                 {
                     status = result,
-                    totalProducts = totalProduxts,
+                    totalProducts = totalProducts,
                     totalPrice = totalPrice,
                 });
             }
@@ -108,6 +108,34 @@ namespace WebMVC.Controllers
             {
                 status = result
             });
+        }
+        [HttpPost]
+        public JsonResult ChangeQuantity(int proId, int number)
+        {
+            var user = (User)Session["user"];
+            var list = new CartDao().GetByUser(user.Id);
+            var cart = list.Where(x => x.Product == proId).FirstOrDefault();
+            var result = new CartDao().UpdateQuantity(cart, number);
+            if (result)
+            {
+                int totalPrice = new CartDao().GetTotalPriceByUser(user.Id);
+                int totalProducts = new CartDao().GetTotalProductsByUser(user.Id);
+                return Json(new
+                {
+                    status = result,
+                    totalProducts = totalProducts,
+                    totalPrice = totalPrice,
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    status = result,
+                    totalProducts = 0,
+                    totalPrice = 0,
+                });
+            }
         }
     }
 }

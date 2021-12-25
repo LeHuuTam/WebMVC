@@ -17,23 +17,36 @@
             </a>
             <div class="navbar-inner">
                 <a class="brand" href=@Url.Action("Index","Home")><img src="~/Assets/themes/images/thucphamxanh.png" alt="Bootsshop" width="200" /></a>
-                <form class="form-inline navbar-search" method="post" action="products.html">
-                    <input id="srchFld" class="srchTxt" type="text" />
-                    <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
-                </form>
-                <ul id="topMenu" class="nav pull-right">
-                    <li class=""><a href="contact.html">Liên hệ</a></li>
-                    <li class="">
-                        @if (session == null)
-                        {
-                            <a href=@Url.Action("Index","Login") role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Đăng nhập</span></a>
-                        }
-                        else
-                        {
-                            <a href=@Url.Action("Index","Login") role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Đăng xuất</span></a>
-                        }
-                    </li>
-                </ul>
+                @using (Html.BeginForm("Search", "Product", FormMethod.Get, new { @class = "form-inline navbar-search" }))
+                {
+                    @*<input id="srchFld" class="srchTxt" type="text" />*@
+                    @Html.TextBox("SearchString","", new { @class = "srchTxt", id = "srchFld", @style = "width : 300px" })
+                    <button type="submit" id="submitButton" class="btn btn-primary">Tìm kiếm</button>
+                }
+                <div id="topMenu" class="pull-right">
+                    @if (session == null)
+                    {
+                        <a href=@Url.Action("Index", "Login") role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Đăng nhập</span></a>
+                    }
+                    else
+                    {
+                        <div class="btn-group">
+                            <button onclick="location.href='@Url.Action("Index", "Cart")'" class="btn btn-success dropdown-toggle">
+                                Giỏ hàng <span><i class="fa fa-shopping-cart" style="font-size:20px"></i></span>
+                            </button>
+                        </div>
+                        <div class="btn-group">
+                            <button onclick="location.href='@Url.Action("Index", "Order", new { status = 1})'" class="btn btn-success dropdown-toggle">Đơn hàng <span><i class='fas fa-poll-h' style="font-size:20px"></i></span></button>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">Tài khoản <span><i class='fas fa-user-alt' style='font-size:20px'></i></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Thông tin tài khoản</a></li>
+                                <li><a href="#">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>

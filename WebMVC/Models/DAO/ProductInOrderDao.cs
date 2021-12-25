@@ -12,25 +12,31 @@ namespace WebMVC.Models.DAO
         {
             db = new ShopDbContext();
         }
-        public bool Create(List<Product> proList, int orderId)
+        public bool Create(List<Cart> cartList, int orderId)
         {
             try
             {
-                foreach (var pro in proList)
+                foreach (var cart in cartList)
                 {
                     var proInOrder = new ProductInOrder()
                     {
-                        Product = pro.Id,
+                        Product = cart.Product1.Id,
+                        Quantity = cart.Quantity,
                         Order = orderId
                     };
                     db.ProductInOrders.Add(proInOrder);
                 }
+                db.SaveChanges();
                 return true;
             }
             catch
             {
                 return false;
             }
+        }
+        public List<ProductInOrder> GetByOrder(int orderId)
+        {
+            return db.ProductInOrders.Where(x => x.Order == orderId).ToList();
         }
     }
 }

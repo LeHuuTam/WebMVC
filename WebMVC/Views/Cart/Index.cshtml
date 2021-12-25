@@ -47,6 +47,73 @@
                 }
             })
         });
+        $('.select').off('click').on('click', function (e) {
+            var proId = $(this).data('id');
+            $.ajax({
+                url: '/Cart/ChangeSelected',
+                type: 'POST',
+                async: true,
+                dataType: "json",
+                data: { proId: proId },
+                success: function (msg) {
+                    if (msg.status == false) {
+                        alert('Không thực hiện được');
+                    }
+                }
+            })
+        });
+        $('.increase').off('click').on('click', function (e) {
+            var proId = $(this).data('id');
+            $.ajax({
+                url: '/Cart/ChangeQuantity',
+                type: 'POST',
+                async: true,
+                dataType: "json",
+                data: { proId: proId, number: 1 },
+                success: function (msg) {
+                    if (msg.status == false) {
+                        alert('Không thực hiện được');
+                    }
+                    else {
+                        var quantity = Number($('#cart_' + proId).val());
+                        var singlePriceText = $('#cart_one_price_' + proId).text();
+                        var singlePrice = Number(singlePriceText.replace(' đ', ''));
+                        $('#cart_' + proId).val(quantity + 1);
+                        $('#cart_all_price_' + proId).text((quantity + 1) * singlePrice + ' đ');
+                        $('#total').text(msg.totalPrice);
+                        $('#cartText').text('Giỏ hàng: ' + msg.totalProducts);
+                        $('#cartPrice').text(msg.totalPrice + ' đ');
+                    }
+                }
+            })
+        });
+        $('.decrease').off('click').on('click', function (e) {
+            var proId = $(this).data('id');
+            $.ajax({
+                url: '/Cart/ChangeQuantity',
+                type: 'POST',
+                async: true,
+                dataType: "json",
+                data: { proId: proId, number: -1 },
+                success: function (msg) {
+                    if (msg.status == false) {
+                        alert('Không thực hiện được');
+                    }
+                    else {
+                        var quantity = Number($('#cart_' + proId).val());
+                        if (quantity > 1) {
+                            var singlePriceText = $('#cart_one_price_' + proId).text();
+                            var singlePrice = Number(singlePriceText.replace(' đ', ''));
+                            $('#cart_' + proId).val(quantity - 1);
+                            $('#cart_all_price_' + proId).text((quantity - 1) * singlePrice + ' đ');
+                            $('#total').text(msg.totalPrice);
+                            $('#cartText').text('Giỏ hàng: ' + msg.totalProducts);
+                            $('#cartPrice').text(msg.totalPrice + ' đ');
+                        } 
+                    } 
+                }
+            })
+        });
     </script>
 }
 <div class="span9">
@@ -69,7 +136,7 @@
                     <th>Tên sản phẩm</th>
                     <th>Số lượng</th>
                     <th>Đơn giá</th>
-                    <th>Tổng</th>
+                    <th>Thành tiền</th>
                     <th>Chọn mua</th>
                 </tr>
             </thead>
@@ -81,11 +148,11 @@
                         <td>@item.Product1.Name<br />Color : black, Material : metal</td>
                         <td>
                             <div class="input-append">
-                                <input class="span1" style="max-width:34px" placeholder=@item.Quantity id="appendedInputButtons" size="16" type="text">
-                                <button id="decrease" class="btn" type="button">
+                                <input class="span1" style="max-width:34px" value=@item.Quantity id="cart_@item.Product1.Id" size="16" type="text">
+                                <button class="btn decrease" type="button" data-id=@item.Product1.Id>
                                     <i class="icon-minus"></i>
                                 </button>
-                                <button id="increase" class="btn" type="button">
+                                <button class="btn increase" type="button" data-id=@item.Product1.Id>
                                     <i class="icon-plus"></i>
                                 </button>
                                 <button class="btn btn-danger removeCart" type="button" data-id=@item.Product1.Id>
@@ -93,8 +160,8 @@
                                 </button>
                             </div>
                         </td>
-                        <td>@item.Product1.Price đ</td>
-                        <td>@(item.Quantity * item.Product1.Price) đ</td>
+                        <td id="cart_one_price_@item.Product1.Id">@item.Product1.Price đ</td>
+                        <td id="cart_all_price_@item.Product1.Id">@(item.Quantity * item.Product1.Price) đ</td>
                         <td>
                             @{
                                 var check = item.Selected == true ? "checked=\"checked\"" : null;
@@ -109,6 +176,6 @@
                 </tr>
             </tbody>
         </table>
-        <a id="order" href=@Url.Action("Index", "Order") class="btn btn-large pull-right">Đặt hàng <i class="icon-arrow-right"></i></a>
+        <a id="order" href=@Url.Action("Create", "Order") class="btn btn-large pull-right">Đặt hàng <i class="icon-arrow-right"></i></a>
     }
 </div>

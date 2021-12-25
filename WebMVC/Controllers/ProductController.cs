@@ -20,5 +20,10 @@ namespace WebMVC.Controllers
             var product = new ProductDao().GetById(Id);
             return View(product);
         }
+        public ActionResult Search(string searchString)
+        {
+            var list = new ProductDao().Search(searchString);
+            return View(list);
+        }
     }
 }
