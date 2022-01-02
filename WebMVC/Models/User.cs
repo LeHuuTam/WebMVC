@@ -46,9 +46,6 @@ namespace WebMVC.Models
         [StringLength(100)]
         public string Address { get; set; }
 
-        [StringLength(100)]
-        public string Avatar { get; set; }
-
         [Required]
         [StringLength(50)]
         public string UserName { get; set; }

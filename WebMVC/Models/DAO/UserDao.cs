@@ -59,7 +59,6 @@ namespace WebMVC.Models.DAO
                 user.Phone = newUser.Phone;
                 user.Email = newUser.Email;
                 user.Address = newUser.Address;
-                user.Avatar = newUser.Avatar;
                 user.UserName = newUser.UserName;
                 user.Password = newUser.Password;
                 db.SaveChanges();

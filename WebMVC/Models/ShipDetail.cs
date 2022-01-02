@@ -27,10 +27,10 @@ namespace WebMVC.Models
         [StringLength(15)]
         public string Phone { get; set; }
 
-        [StringLength(100)]
+        [StringLength(20)]
         public string Province { get; set; }
 
-        [StringLength(100)]
+        [StringLength(20)]
         public string District { get; set; }
 
         [StringLength(100)]

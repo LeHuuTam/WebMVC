@@ -26,6 +26,9 @@ namespace WebMVC.Models
 
         public int? ParentId { get; set; }
 
+        [Column(TypeName = "text")]
+        public string Desciption { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category> Category1 { get; set; }
 

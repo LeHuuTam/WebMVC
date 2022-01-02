@@ -27,6 +27,10 @@ namespace WebMVC.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>()
+                .Property(e => e.Desciption)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Category>()
                 .HasMany(e => e.Category1)
                 .WithOptional(e => e.Category2)
                 .HasForeignKey(e => e.ParentId);
@@ -94,10 +98,6 @@ namespace WebMVC.Models
 
             modelBuilder.Entity<User>()
                 .Property(e => e.Phone)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.Avatar)
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()
