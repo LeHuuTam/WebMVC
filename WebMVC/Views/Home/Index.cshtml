@@ -20,6 +20,7 @@
                     if (msg.status == 'true') {
                         $('#cartText').text('Giỏ hàng: ' + msg.totalProducts);
                         $('#cartPrice').text(msg.totalPrice + ' đ');
+                        $('#cartQuantity').text(msg.totalProducts);
                     }
                     else {
                         alert('Thêm không thành công');
@@ -31,7 +32,7 @@
 }
 <div class="span9">
     <div class="well well-small">
-        <h4>sản phẩm bán chạy <small class="pull-right">200+ featured products</small></h4>
+        <h4>sản phẩm bán chạy</h4>
         @Html.Partial("Featured", featured);
     </div>
     <h4>Sản phẩm mới </h4>

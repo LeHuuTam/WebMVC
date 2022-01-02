@@ -20,7 +20,29 @@ namespace WebMVC.Models.DAO
         {
             return db.Orders.Where(x => x.User == userId && x.Status == status).ToList();
         }
-        public bool Create(int userId, int shipDetailId, string note, out int orderId)
+        public List<Order> GetByStatus(int status)
+        {
+            return db.Orders.Where(x=>x.Status == status).ToList();
+        }
+        public bool UpdateStatus(int orderId, int newStatus)
+        {
+            try
+            {
+                var order = db.Orders.Where(x => x.Id == orderId).FirstOrDefault();
+                order.Status = newStatus;
+                if(newStatus == 3)
+                {
+                    order.ReceiveDate = DateTime.Now;
+                }    
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool Create(int userId, int shipDetailId, string note, out int orderId, int totalPrice)
         {
             orderId = -1;
             try
@@ -31,7 +53,8 @@ namespace WebMVC.Models.DAO
                     ShipDetail = shipDetailId,
                     Note = note,
                     Time = DateTime.Now,
-                    Status = 1
+                    Status = 1,
+                    TotalPrice = totalPrice
                 };
                 db.Orders.Add(order);
                 db.SaveChanges();

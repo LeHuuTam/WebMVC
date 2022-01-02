@@ -19,11 +19,12 @@ namespace WebMVC.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
+            ViewBag.Status = status;
             var orderModelList = new List<OrderModel>();
             var orderList = new OrderDao().GetByStatus(user.Id, status);
             if (orderList.Count > 0)
             {
-                foreach(var order in orderList)
+                foreach (var order in orderList)
                 {
                     var proInOderList = new ProductInOrderDao().GetByOrder(order.Id);
                     var orderModel = new OrderModel()
@@ -50,6 +51,8 @@ namespace WebMVC.Controllers
                 ViewBag.UserName = user.Name;
                 ViewBag.Phone = user.Phone;
                 ViewBag.Address = user.Address;
+                ViewBag.Province = user.Province;
+                ViewBag.District = user.District;
             }
             else
             {
@@ -57,6 +60,8 @@ namespace WebMVC.Controllers
                 ViewBag.UserName = shipDetail.ReceiverName;
                 ViewBag.Phone = shipDetail.Phone;
                 ViewBag.Address = shipDetail.Address;
+                ViewBag.Province = shipDetail.Province;
+                ViewBag.District = shipDetail.District;
             }
             var selectedCart = new CartDao().GetByUser(user.Id).Where(x => x.Selected == true).ToList();
             ViewData["SelectedCart"] = selectedCart;
@@ -85,9 +90,15 @@ namespace WebMVC.Controllers
                 {
                     shipDetailId = shipDetail.Id;
                 }
-                var createOrder = new OrderDao().Create(user.Id, shipDetailId, model.Note, out orderId);
                 var SelectedCart = new CartDao().GetSelected(user.Id);
+                int totalPrice = 0;
+                foreach (var cart in SelectedCart)
+                {
+                    totalPrice += cart.Product1.Price * cart.Quantity;
+                }
+                var createOrder = new OrderDao().Create(user.Id, shipDetailId, model.Note, out orderId, totalPrice);
                 var createProInorder = new ProductInOrderDao().Create(SelectedCart, orderId);
+                var removeSelectedCart = new CartDao().RemoveSelected(user.Id);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -95,6 +106,11 @@ namespace WebMVC.Controllers
                 ModelState.AddModelError("", "đã có lỗi xảy ra");
                 return View("Index");
             }
+        }
+        public ActionResult Cancel(int orderId)
+        {
+            var result = new OrderDao().UpdateStatus(orderId, 0);
+            return RedirectToAction("Index", new { status = 1});
         }
     }
 }

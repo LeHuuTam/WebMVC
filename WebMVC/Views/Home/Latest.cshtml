@@ -8,16 +8,16 @@
     {
         <li class="span3">
             <div class="thumbnail">
-                <a href="product_details.html"><img src=@item.Avatar alt="" /></a>
+                <a href=@Url.Action("ProductDetail", "Product", new { Id = item.Id })><img src=@item.Avatar alt="" /></a>
                 <div class="caption">
                     <h5>@item.Name</h5>
                     @if (user != null)
                     {
-                        <h4 style="text-align:center"><a class="btn"> <i class="icon-zoom-in"></i></a> <a class="btn addCart" data-id=@item.Id>Thêm vào <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@item.Price đ</a></h4>
+                        <h4 style="text-align:center"><a class="btn addCart" data-id=@item.Id>Thêm vào <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href=@Url.Action("ProductDetail", "Product", new { Id = item.Id })>@item.Price đ</a></h4>
                     }
                     else
                     {
-                        <h4 style="text-align:center"><a class="btn"> <i class="icon-zoom-in"></i></a> <a class="btn" href=@Url.Action("Index", "Login")>Thêm vào <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@item.Price đ</a></h4>
+                        <h4 style="text-align:center"><a class="btn" href=@Url.Action("Index", "Login")>Thêm vào <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href=@Url.Action("ProductDetail", "Product", new { Id = item.Id })>@item.Price đ</a></h4>
                     }
 
                 </div>

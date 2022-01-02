@@ -22,27 +22,13 @@
                 success: function (msg) {
                     if (msg.status == true) {
                         $('#row_' + proId).remove();
-                        $('#total').text(msg.totalPrice);
+                        $('#total').text(msg.totalPrice + ' đ');
                         $('#cartText').text('Giỏ hàng: ' + msg.totalProducts);
                         $('#cartPrice').text(msg.totalPrice + ' đ');
+                        $('#cartQuantity').text(msg.totalProducts);
                     }
                     else {
                         alert('Không thể xoá');
-                    }
-                }
-            })
-        });
-        $('.select').off('click').on('click', function (e) {
-            var proId = $(this).data('id');
-            $.ajax({
-                url: '/Cart/ChangeSelected',
-                type: 'POST',
-                async: true,
-                dataType: "json",
-                data: { proId: proId },
-                success: function (msg) {
-                    if (msg.status == false) {
-                        alert('Không thực hiện được');
                     }
                 }
             })
@@ -80,9 +66,10 @@
                         var singlePrice = Number(singlePriceText.replace(' đ', ''));
                         $('#cart_' + proId).val(quantity + 1);
                         $('#cart_all_price_' + proId).text((quantity + 1) * singlePrice + ' đ');
-                        $('#total').text(msg.totalPrice);
+                        $('#total').text(msg.totalPrice + ' đ');
                         $('#cartText').text('Giỏ hàng: ' + msg.totalProducts);
                         $('#cartPrice').text(msg.totalPrice + ' đ');
+                        $('#cartQuantity').text(msg.totalProducts);
                     }
                 }
             })
@@ -106,9 +93,10 @@
                             var singlePrice = Number(singlePriceText.replace(' đ', ''));
                             $('#cart_' + proId).val(quantity - 1);
                             $('#cart_all_price_' + proId).text((quantity - 1) * singlePrice + ' đ');
-                            $('#total').text(msg.totalPrice);
+                            $('#total').text(msg.totalPrice + ' đ');
                             $('#cartText').text('Giỏ hàng: ' + msg.totalProducts);
                             $('#cartPrice').text(msg.totalPrice + ' đ');
+                            $('#cartQuantity').text(msg.totalProducts);
                         } 
                     } 
                 }
@@ -117,12 +105,9 @@
     </script>
 }
 <div class="span9">
-    <ul class="breadcrumb">
-        <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-        <li class="active"> SHOPPING CART</li>
-    </ul>
-    <h3>  Giỏ hàng <a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>
+    <h3 class="breadcrumb"> Giỏ hàng <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Tiếp tục mua sắm </a></h3>
     <hr class="soft" />
+    
     @if (Model.Count == 0)
     {
         <h2>Bạn chưa có sản phẩm nào trong giỏ hàng</h2>

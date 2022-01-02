@@ -27,13 +27,9 @@ namespace WebMVC.Areas.Admin.Controllers
                 if (result)
                 {
                     var user = dao.GetByUserName(model.UserName);
-                    var userSession = new UserSession()
-                    {
-                        Id = user.Id,
-                        UserName = user.UserName
-                    };
-                    Session.Add(Const.UserSession, userSession);
-                    return RedirectToAction("Index", "Home");
+                    Session.Add("user", user);
+                    ViewBag.UserName = user.Name;
+                    return RedirectToAction("Index", "User");
                 }
                 else
                 {
@@ -41,6 +37,11 @@ namespace WebMVC.Areas.Admin.Controllers
                 }
             }
             return View("Index");
+        }
+        public ActionResult Logout()
+        {
+            Session["user"] = null;
+            return Redirect("/Home/Index");
         }
     }
 }

@@ -9,21 +9,19 @@
         tong += item.Product1.Price * item.Quantity;
     }
 }
-<style>
-    .control-group {
-        margin-left: 7rem
-    }
-
-    .ship-form {
-        width: 20rem
-    }
-</style>
+@section cssHeader
+{
+    <style>
+        .control-group {
+            margin-left: 7rem
+        }
+        .ship-form {
+            width: 20rem
+        }
+    </style>
+}
 <div class="span9">
-    <ul class="breadcrumb">
-        <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-        <li class="active"> SHOPPING CART</li>
-    </ul>
-    <h3>  Đặt hàng</h3>
+    <h3 class="breadcrumb">  Đặt hàng</h3>
     <hr class="soft" />
     @using (Html.BeginForm("Create", "Order", FormMethod.Post, new { @class = "form-horizontal" }))
     {
@@ -45,6 +43,18 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <label class="control-label" for="inputPost">Tỉnh</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Province, "", new { @Value = ViewBag.Province, @class = "ship-form" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputPost">Quận/Huyện</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.District, "", new { @Value = ViewBag.District, @class = "ship-form" })
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <label class="control-label" for="inputPost">Địa chỉ nhận hàng</label>
                         <div class="controls">
                             @Html.TextBoxFor(m => m.Address, "", new { @Value = ViewBag.Address, @class = "ship-form" })
@@ -54,11 +64,6 @@
                         <label class="control-label" for="inputPost">Ghi chú</label>
                         <div class="controls">
                             @Html.TextAreaFor(m => m.Note)
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <button type="submit" class="btn">Thông tin đã lưu</button>
                         </div>
                     </div>
                 </td>

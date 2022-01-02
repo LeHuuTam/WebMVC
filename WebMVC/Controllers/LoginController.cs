@@ -29,7 +29,13 @@ namespace WebMVC.Controllers
                     var user = dao.GetByUserName(model.UserName);
                     Session.Add("user", user);
                     ViewBag.UserName = user.Name;
-                    return RedirectToAction("Index", "Home");
+                    switch (user.Role)
+                    {
+                        case 1:
+                            return Redirect("/Admin/User/Index");
+                        case 2:
+                            return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
@@ -37,6 +43,51 @@ namespace WebMVC.Controllers
                 }
             }
             return View("Index");
+        }
+        public ActionResult Logout()
+        {
+            Session["user"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(Register model)
+        {
+            if (ModelState.IsValid)
+            {
+                var dao = new UserDao();
+                var userName = dao.GetByUserName(model.UserName);
+                if (userName != null)
+                {
+                    ModelState.AddModelError("", "Tên đăng nhập đã tồn tại!");
+                    return View("Register");
+                }
+                else if (model.Password != model.ConfirmPassword)
+                {
+                    ModelState.AddModelError("", "Mật khẩu không trùng khớp");
+                    return View("Register");
+                }
+                else
+                {
+                    var result = dao.Register(model);
+                    if (result)
+                    {
+                        var user = dao.GetByUserName(model.UserName);
+                        Session.Add("user", user);
+                        ViewBag.UserName = user.Name;
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Đăng ký không thành công!");
+                    }
+                }
+            }
+            return View("Register");
         }
     }
 }

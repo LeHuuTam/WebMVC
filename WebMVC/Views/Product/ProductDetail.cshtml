@@ -19,6 +19,7 @@
                     if (msg.status == 'true') {
                         $('#cartText').text('Giỏ hàng: ' + msg.totalProducts);
                         $('#cartPrice').text(msg.totalPrice + ' đ');
+                        $('#cartQuantity').text(msg.totalProducts);
                     }
                     else {
                         alert('Thêm không thành công');

@@ -51,5 +51,19 @@ namespace WebMVC.Models.DAO
         {
             return db.Products.Where(x => x.Name.Contains(searchString)).ToList();
         }
+        public bool UpdateStock(int? proId, int? minus)
+        {
+            try
+            {
+                var pro = db.Products.Where(x => x.Id == proId).FirstOrDefault();
+                pro.Stock -= minus;
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

@@ -3,13 +3,8 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 <div class="span9">
-    <ul class="breadcrumb">
-        <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-        <li class="active">Đăng nhập</li>
-    </ul>
-    <h3> Login</h3>
+    <h3 class="breadcrumb"> Đăng nhập</h3>
     <hr class="soft" />
-
     <div class="row">
         <div class="span4">
             <div class="well">
@@ -24,12 +19,12 @@
                         @Html.ValidationMessageFor(m => m.Password, "", new { @style = "color:red" })
                         @Html.TextBoxFor(m => m.Password, new { @type = "password", @id = "inputPassword", @placeholder = "Mật khẩu" })
                     </div>
-                    <div class="control-group">
+                    @*<div class="control-group">
                         <label class="checkbox">
                             @Html.CheckBoxFor(m => m.RememberMe, new { @type = "checkbox" }) Remember me
                         </label>
-                    </div>
-                    <button type="submit" class="btn btn-success">Đăng nhập</button>
+                    </div>*@
+                    <button type="submit" class="btn btn-success">Đăng nhập</button>                    
                 }
             </div>
         </div>

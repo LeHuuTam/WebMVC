@@ -105,6 +105,23 @@ namespace WebMVC.Models.DAO
                 return false;
             }
         }
+        public bool RemoveSelected(int userId)
+        {
+            try
+            {
+                List<Cart> carts = db.Carts.Where(x => x.User == userId && x.Selected == true).ToList();
+                foreach (var cart in carts)
+                {
+                    db.Carts.Remove(cart);
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         public bool ChangeSelected(int cartId)
         {
             try

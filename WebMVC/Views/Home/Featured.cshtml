@@ -12,8 +12,8 @@
                     {
                         <li class="span3">
                             <div class="thumbnail">
-                                <i class="tag"></i>
-                                <a href="product_details.html"><img src=@Model[j].Avatar alt=""></a>
+                                @*<i class="tag"></i>*@
+                                <a href=@Url.Action("ProductDetail", "Product", new { Id = Model[j].Id })><img src=@Model[j].Avatar alt=""></a>
                                 <div class="caption">
                                     <h5>@Model[j].Name</h5>
                                     @if (user != null)
@@ -38,8 +38,8 @@
                         {
                             <li class="span3">
                                 <div class="thumbnail">
-                                    <i class="tag"></i>
-                                    <a href="product_details.html"><img src=@Model[j+4*i].Avatar alt=""></a>
+                                    @*<i class="tag"></i>*@
+                                    <a href=@Url.Action("ProductDetail", "Product", new { Id = Model[j+4*i].Id })><img src=@Model[j+4*i].Avatar alt=""></a>
                                     <div class="caption">
                                         <h5>@Model[j + 4 * i].Name</h5>
                                         @if (user != null)

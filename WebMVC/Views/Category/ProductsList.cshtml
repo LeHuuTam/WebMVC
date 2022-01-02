@@ -19,6 +19,7 @@
                     if (msg.status == 'true') {
                         $('#cartText').text('Giỏ hàng: ' + msg.totalProducts);
                         $('#cartPrice').text(msg.totalPrice + ' đ');
+                        $('#cartQuantity').text(msg.totalProducts);
                     }
                     else {
                         alert('Thêm không thành công');
@@ -26,31 +27,40 @@
                 }
             })
         });
+        $('#sortName').off('click').on('click', function (e) {
+            e.preventDefault();
+            var cateId = $(this).data('id');
+            $.ajax({
+                url: '/Category/ProductsList',
+                type: 'GET',
+                async: true,
+                data: { cateId: cateId, sort: "nameIncrease" },
+            })
+        });
     </script>
 }
 <div class="span9">
-    <ul class="breadcrumb">
-        <li><a href="/Home">Trang chủ</a> <span class="divider">/</span></li>
-        <li class="active">@ViewBag.Cate</li>
-    </ul>
-    <h3> @ViewBag.CateName <small class="pull-right"> có sẵn 200 mặt hàng </small></h3>
-    <hr class="soft" />
+    <h3 class="breadcrumb">
+        @ViewBag.CateName
+        <small class="pull-right" style="width:333px">
+            @using (Html.BeginForm("ProductsList", "Category", FormMethod.Post, new { @class = "form-horizontal span6", @style = "margin-bottom: 0px; margin-left: 0px; width: 333px" }))
+            {
+                <div class="control-group" style="width:350px">
+                    <label class="control-label alignL" style="width:100px">Sắp xếp </label>
+                    <select>
+                        <option>Tên sản phẩm Z - A</option>
+                        <option>Tên sản phẩm Z - A</option>
+                        <option>Giá thấp đến cao</option>
+                        <option>Giá cao đến thấp</option>
+                    </select>
+                </div>
+            }
+        </small>
+    </h3>
     <p>
         Đây là phẩn mô tả danh mục
     </p>
     <hr class="soft" />
-    <form class="form-horizontal span6">
-        <div class="control-group">
-            <label class="control-label alignL">Sắp xếp </label>
-            <select>
-                <option>Tên sản phẩm A - Z</option>
-                <option>Tên sản phẩm Z - A</option>
-                <option>Giá thấp đến cao</option>
-                <option>Giá cao đến thấp</option>
-            </select>
-        </div>
-    </form>
-    <br class="clr" />
     <div class="tab-content">
         <div class="tab-pane  active" id="blockView">
             <ul class="thumbnails">
@@ -74,7 +84,6 @@
                     </li>
                 }
             </ul>
-            <hr class="soft" />
         </div>
     </div>
     <div class="pagination">

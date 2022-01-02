@@ -28,6 +28,12 @@ namespace WebMVC.Models
         public string Phone { get; set; }
 
         [StringLength(100)]
+        public string Province { get; set; }
+
+        [StringLength(100)]
+        public string District { get; set; }
+
+        [StringLength(100)]
         public string Address { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

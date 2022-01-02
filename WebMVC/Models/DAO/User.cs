@@ -1,4 +1,4 @@
-namespace WebMVC.Models
+namespace WebMVC.Models.DAO
 {
     using System;
     using System.Collections.Generic;

@@ -135,10 +135,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Common\Const.cs" />
     <Compile Include="Common\UserSession.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -146,6 +151,7 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShipDetailController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -157,19 +163,23 @@
     <Compile Include="Models\DAO\ProductDao.cs" />
     <Compile Include="Models\DAO\ShipDetailDao.cs" />
     <Compile Include="Models\DAO\UserDao.cs" />
+    <Compile Include="Models\DistrictModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderModel.cs" />
-    <Compile Include="Models\ShipDetailModel.cs" />
-    <Compile Include="Models\DAO\ProductInOrderDao.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductInOrder.cs" />
+    <Compile Include="Models\ProvinceModel.cs" />
+    <Compile Include="Models\Register.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\ShipDetail.cs" />
+    <Compile Include="Models\ShipDetailModel.cs" />
+    <Compile Include="Models\DAO\ProductInOrderDao.cs" />
     <Compile Include="Models\ShipMethod.cs" />
     <Compile Include="Models\ShopDbContext.cs" />
+    <Compile Include="Models\SortModel.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1864,6 +1874,8 @@
     <Content Include="Assets\bootstrap\img\glyphicons-halflings-white.png" />
     <Content Include="Assets\bootstrap\img\glyphicons-halflings.png" />
     <Content Include="Assets\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Assets\controller\LoadAddress.js" />
+    <Content Include="Assets\data\Provinces_Data.xml" />
     <Content Include="Assets\themes\amelia\bootstrap.css" />
     <Content Include="Assets\themes\amelia\bootstrap.min.css" />
     <Content Include="Assets\themes\bootshop\bootstrap.min.css" />
@@ -2260,6 +2272,8 @@
     <Content Include="Assets\themes\less\utilities.less" />
     <Content Include="Assets\themes\less\variables.less" />
     <Content Include="Assets\themes\less\wells.less" />
+    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2294,17 +2308,20 @@
     <Content Include="Views\Shared\Top.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Order\Create.cshtml" />
-    <Content Include="Views\Order\ShipDetail.cshtml" />
-    <Content Include="Views\Order\ProductList.cshtml" />
     <Content Include="Views\ShipDetail\Create.cshtml" />
     <Content Include="Views\ShipDetail\Index.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Login\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Category\" />
+    <Folder Include="Areas\Admin\Views\Product\" />
     <Folder Include="Assets\themes\less\oregional\" />
+    <Folder Include="Views\Address\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

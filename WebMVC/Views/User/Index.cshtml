@@ -1,0 +1,46 @@
+﻿@model WebMVC.Models.User
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="span9">
+    <h3 class="breadcrumb"> Thông tin cá nhân </h3>
+    <hr class="soft" />
+    <div class="well">
+
+        @using (Html.BeginForm("Update", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            <div class="control-group">
+                <label class="control-label" for="inputFname1">Tên khách hàng</label>
+                <div class="controls">
+                    <input type="text" id="inputFname1" placeholder="First Name">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="input_email">Email</label>
+                <div class="controls">
+                    <input type="text" id="input_email" placeholder="Email">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="input_email">Số điện thoại</label>
+                <div class="controls">
+                    <input type="text" id="input_email" placeholder="Email">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword1">Tên đăng nhập <sup>*</sup></label>
+                <div class="controls">
+                    <input type="password" id="inputPassword1" placeholder="Password">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <input type="hidden" name="email_create" value="1">
+                    <input type="hidden" name="is_new_customer" value="1">
+                    <input class="btn btn-large btn-success" type="submit" value="Lưu thay đổi">
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@model WebMVC.Models.Register
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section cssHeader{
+    <style>
+        .input {
+            margin-left: 5%;
+        }
+    </style>
+}
+@section jsFooter{
+    <script src="~/Assets/controller/LoadAddress.js"></script>
+}
+<div class="span9">
+    <h3 class="breadcrumb"> Đăng ký</h3>
+    <hr class="soft" />
+    <div class="well">
+        @using (Html.BeginForm("Register", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.ValidationSummary(true, "", new { @style = "color:red" })
+            <div class="control-group">
+                <label class="control-label">Tên khách hàng </label>
+                @Html.TextBoxFor(m => m.Name, new { @class = "input" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "input", @style = "color:red" })
+            </div>
+            <div class="control-group">
+                <label class="control-label">Email </label>
+                @Html.TextBoxFor(m => m.Email, new { @class = "input" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "input", @style = "color:red" })
+            </div>
+            <div class="control-group">
+                <label class="control-label">Số điện thoại </label>
+                @Html.TextBoxFor(m => m.Phone, new { @class = "input" })
+                @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "input", @style = "color:red" })
+            </div>
+            <div class="control-group">
+                <label class="control-label">Tỉnh </label>
+                @Html.DropDownList("ProvinceID", new SelectList(new string[] { }), new { @class = "input", @id = "ddlProvince" })
+                @Html.ValidationMessageFor(m => m.Province, "", new { @class = "input", @style = "color:red" })
+            </div>
+            <div class="control-group">
+                <label class="control-label">Huyện </label>
+                @Html.DropDownList("DistrictID", new SelectList(new string[] { }), new { @class = "input", @id = "ddlDistrict" })
+                @Html.ValidationMessageFor(m => m.District, "", new { @class = "input", @style = "color:red" })
+            </div>
+            <div class="control-group">
+                <label class="control-label">Địa chỉ </label>
+                @Html.TextBoxFor(m => m.Address, new { @class = "input" })
+                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "input", @style = "color:red" })
+            </div>
+            <div class="control-group">
+                <label class="control-label">Tên đăng nhập </label>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "input" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "input", @style = "color:red" })
+            </div>
+            <div class="control-group">
+                <label class="control-label">Mật khẩu </label>
+                @Html.PasswordFor(m => m.Password, new { @class = "input" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "input", @style = "color:red" })
+            </div>
+            <div class="control-group">
+                <label class="control-label">Nhập lại mật khẩu </label>
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "input", @style = "color:red" })
+            </div>
+            <button type="submit" class="btn btn-success">Đăng ký</button>
+        }
+    </div>
+</div>
